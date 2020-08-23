@@ -1,0 +1,85 @@
+.sobre {
+	background-color: #aaa;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	border-radius: 5px;
+	width: 500px;
+	height: 300px;
+	margin: 120px auto auto auto;
+	text-shadow: 1px 1px 2px black;
+	box-shadow: 2px 2px 2px #aaa;
+}
+
+.sobre h2 {
+	color: #fff;
+	text-align: center;
+	line-height: 29px;
+	height: 25px;
+	letter-spacing: 2px;
+	margin-bottom: 5px;
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	align-content: space-between;
+	width: 100%;
+	height: 30%;
+	margin-top: 20px;
+}
+
+.header img {
+	height: 55px;
+	width: 55px;
+	margin-bottom: 10px;
+}
+.content {
+	display: flex;
+	flex-direction: column;
+	width: inherit;
+	height: 60%;
+	line-height: 20px;
+	margin-top: 10px;
+	color: black;
+	text-shadow: 1px 1px 2px #fff;
+}
+
+.content h5 {
+	font-family: 'Open Sans';
+	margin-left: 10px;
+	letter-spacing: 2px;
+}
+
+.content p {
+	font-family: 'Open Sans';
+	font-weight: normal;
+	font-size: 12px;
+	float: right;
+}
+#name {
+	margin-right: 285px;
+}
+#feature {
+	margin-right: 215px;
+}
+#license {
+	margin-right: 385px;
+}
+#report {
+	margin-right: 155px;
+}
+#copy {
+	margin-top: 25px;
+}
+
+#copy, #version {
+	font-family: 'Open Sans';
+	font-weight: normal;
+	font-size: 10px;
+	text-align: center;
+}

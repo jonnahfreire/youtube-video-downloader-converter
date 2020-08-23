@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   
+    <link rel="shortcut icon" href="./src/images/downloader.ico" type="image/ico"/>
+    <link href="https://fonts.googleapis.com/css2?family=Sriracha&display=swap" rel="stylesheet">
+
+     <script src="/eel.js"></script>
+    <link rel="stylesheet" type="text/css" href="./src/index.css">
+    <link rel="stylesheet" type="text/css" href="./src/conversor.css">
+    <link rel="stylesheet" type="text/css" href="./src/sobre.css">
+	<title>Youtube Video Downloader</title>
+
+</head>
+<body>
+	<div class="container">
+		<div class="menu">
+			<p class="menu-item active">Downloader</p>
+			<p class="menu-item">Conversor</p>
+			<p class="menu-item">Sobre</p>
+		</div>
+
+		<div class="search">
+			<input type="text" placeholder="Pesquisar" class="search-input" title="Pesquisar um vídeo" autofocus>
+			<div class="clear-input">
+				<div class="clear-input-img">
+					<img class="clear-search" src="src/images/cancel.svg">
+				</div> 
+			</div>
+			<div class="search-btn">
+				<img class="search-img" src="src/images/search.svg" title="Pesquisar">
+			</div>
+		</div>
+		<!-- Downloader -->
+		<div class="container-search-result">
+			<div class="search-result">
+				<p class="search-result-p">Resultados:</p><p class="search-result-span"></p>
+			</div>	
+			<div class="content-results"></div>
+		</div><!-- Downloader -->
+
+		<!-- Conversor -->
+		<div class="conversor" style="display: none;">
+			<input type="text" placeholder="Selecione um arquivo de vídeo" class="campo video-input video-file" required title="Clique para abrir um arquivo">
+			
+			<input type="text" placeholder="Selecione um caminho para salvar (Opcional) " class="campo cv-path" title="Clique para selecionar um caminho">
+			
+			<div class="conv-commands">
+				<div class="all-msg-conv">
+					<div class="msg-convert" style="display: none;">
+						<p class="text-loading-cv">Convertendo, aguarde</p>
+						<img id="converting" src="src/images/31.svg">
+					</div>
+					<div class="msg-convert-concluded" style="display: none;">
+						<div class="convert-concluded">
+							<p class="text-concluded-cv concluded">Arquivo convertido com sucesso!</p>
+							<img class="close-msg-concluded-cv" title="Fechar mensagem" src="src/images/close-white.svg">
+						</div>
+					</div>
+				</div>
+				<div class="div-btn-converter">
+					<input type="button" value="Converter" class="button btn_converter" title="Converter">
+				</div>
+			</div>
+
+			<div class="modal-cv">
+				<div class="msg-popup">
+					<div class="msg-error">
+						<p></p>
+					</div>
+					<div class="confirm">
+						<input type="button" class="button ok" value="OK">
+					</div>
+				</div>
+			</div>
+		</div><!-- Conversor -->
+
+		<!-- Sobre -->
+		<div class="sobre" style="display: none;">
+			<div class="header">
+				<img src="./src/images/downloader.ico">
+				<h2>YouTube Video Downloader</h2>
+			</div>
+			<div class="content">
+				<h5>Written by: <p id="name">Jonnas Freire</p></h5>
+				<h5>Features: <p id="feature">Download video - audio</p></h5>
+				<h5>License: <p id="license">MIT</p></h5>
+				<h5>Report Issues: <p id="report">jonnas.freire17@gmail.com</p></h5>
+				<h5 id="copy">Copyright &copy; 2020</h5>
+				<h5 id="version">Version 1.1.4</h5>
+			</div>
+		</div><!-- Sobre -->
+
+		<div class="modal">
+			<div class="popup-loading">
+				<img src="src/images/loading-blue.svg">
+			</div>
+		</div>
+
+		<div class="content" style="display: none;">
+			<!-- Models -->
+			<div class="search-result-items">
+				<img class="thumbnail" title="Imagem do video" src="">
+				<div class="container-duration">
+					<div class="duration"></div>
+				</div>
+				
+				<div class="items" >
+					<div class="results-title">
+						<h3 title="Título do vídeo">--</h3>
+					</div>
+					<div class="commands-items">
+						<div class="commands" >
+							<div class="wait-msg">Download em andamento..aguarde</div>
+							<div class="msg-download" style="display: none;">
+								<p class="text-loading">Baixando, aguarde</p>
+								<img id="downloading" src="src/images/31.svg">
+							</div>
+							<div class="msg-download-concluded" style="display: none;">
+								<div class="download-concluded">
+									<p class="text-concluded concluded">Download concluído</p>
+									<img class="close-msg-concluded" title="Fechar mensagem" src="src/images/close-white.svg">
+								</div>
+							</div>
+							<div class="formats">
+								<label for="media-format" title="Escolha um formato">Formato: </label>
+								<select class="format-options" id="media-format" name="format">
+									<option value="mp4" selected>Video</option>
+									<option value="mp3">Audio</option>
+								</select>
+							</div>
+							<div class="btn-download">
+								<img id="download-img" src="src/images/download.svg" title="Baixar" alt="Baixar">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+<script src="./src/index.js"></script>
+<script src="./src/conversor.js"></script>
+</body>
+</html>

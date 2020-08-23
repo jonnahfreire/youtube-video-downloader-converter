@@ -1,0 +1,190 @@
+
+.conversor {
+	background-color: #aaa;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	justify-content: space-around;
+	border: none;
+	border-radius: 5px;
+	width: 600px;
+	height: 225px;
+	margin: 120px auto auto auto;
+	padding: 25px;
+	box-shadow: 2px 2px 2px #aaa;
+}
+
+.conv-commands {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	width: 100%;
+	height: 50px;
+	padding: 10px;
+	margin-top: 15px;
+}
+.campo, .button {
+	font-family: 'Open Sans';
+	font-size: 14px;
+	border: none;
+	border-radius: 5px;
+	outline: none;
+	width: 100%;
+	height: 20px;
+	padding: 10px;
+	transition: all ease .2s;
+	letter-spacing: 1px;
+	cursor: pointer;
+}
+
+.all-msg-conv {
+	width: 95%;
+	margin-left: -10px;
+}
+.msg-convert {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.text-loading-cv {
+	background-color: #4061A4;
+	width: 185px;
+	height: 30px;
+	font-size: 14px;
+	font-family: "Open sans";
+	text-align: center;
+	letter-spacing: 1px;
+	color: white;
+	text-shadow: 1px 1px 2px black;
+	border:none;
+	border-radius: 5px;
+	padding-top: 5px;
+	margin-left: -35px;
+}
+
+.div-btn-converter {
+	width: 35%;
+	display: flex;
+	justify-content: flex-end;
+	margin-right: -10px;
+}
+
+.button {
+	background-color: #27ad7a;
+	color: #fff;
+	font-size: 14px;
+	width: 150px;
+	height: 40px;
+	letter-spacing: 2px;
+	cursor: pointer;
+	text-shadow: 1px 1px 2px black;
+}
+
+.button:hover {
+	background-color: #2BC48A;
+}
+
+.msg-convert-concluded {
+	display: flex;
+}
+.convert-concluded {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 40px;
+}
+.text-concluded-cv {
+	background-color: #4061A4;
+	width: 255px;
+	height: 20px;
+	font-size: 14px;
+	font-family: "Open sans";
+	text-align: center;
+	letter-spacing: 1px;
+	color: white;
+	text-shadow: 1px 1px 2px black;
+	border:none;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	padding: 5px;
+}
+.close-msg-concluded-cv {
+	background-color:  #4061A4;
+	width: 15px;
+	height: 30px;
+	padding-right: 10px;
+	border: none;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	cursor: pointer;
+}
+.active {
+	background-color: #068;
+	border-bottom: 2px solid white;
+}
+
+.modal-cv {
+	background: transparent;
+	position: fixed;
+	display: none;
+	flex-direction: column;
+	left:0;
+	top:0;
+	bottom:0;
+	right:0;
+	overflow-y: auto;
+	transition: all ease .5s;
+	align-items: center;
+}
+
+.msg-popup {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 250px;
+	height: 100px;
+	margin-top: 230px;
+	background-color: rgba(247, 19, 19, .7);
+	border-radius: 5px;
+	color: white;
+	font-family: 'Open Sans';
+}
+
+.msg-error {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 40px;
+	color: white;
+}
+
+.msg-error p {
+	font-weight: normal;
+	text-shadow: 1px 1px 2px black;
+}
+
+.confirm {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10px;
+	width: 100%;
+	height: 35%;
+}
+
+.confirm input {
+	background-color: #4061A4;
+	width: 65px;
+	height: 100%;
+}
+.confirm input:hover {
+	background-color: #5271af;
+}
+

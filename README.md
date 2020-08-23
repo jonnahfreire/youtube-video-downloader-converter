@@ -1,2 +1,2 @@
 # youtube-video-downloader
-Youtube video downloader GUI
+Youtube video downloader and video converter GUI

@@ -1,0 +1,5 @@
+pytube3
+moviepy
+requests
+psutil
+eel

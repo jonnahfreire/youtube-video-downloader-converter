@@ -4,9 +4,9 @@ block_cipher = None
 
 
 a = Analysis(['Youtube Video Downloader.py'],
-             pathex=['C:\\Users\\Jonnas\\Desktop\\Python projects\\downloader\\downloader_version-1.1.4'],
+             pathex=['YOUR_SCRIPT_FOLDER_PATH'],
              binaries=[],
-             datas=[('C:\\Users\\Jonnas\\Desktop\\Python projects\\downloader\\downloader_version-1.1.4\\venv\\lib\\site-packages\\eel\\eel.js', 'eel'), ('static', 'static')],
+             datas=[('YOUR_PYTHON_PATH\\lib\\site-packages\\eel\\eel.js', 'eel'), ('static', 'static')],
              hiddenimports=['bottle_websocket','pkg_resources.py2_warn'],
              hookspath=[],
              runtime_hooks=[],

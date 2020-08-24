@@ -197,12 +197,10 @@ def verify(link, title, file_format):
 
 	if file_format == 'mp4':
 		eel.spawn(vd_downloader(link, title))
-		print(title)
 
 	elif file_format == 'mp3':
 		path = os.environ['USERPROFILE'] + '\\Desktop'
 		eel.spawn(audio_downloader(link, title, path))
-		print(title)
 
 
 

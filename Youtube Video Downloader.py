@@ -2,10 +2,7 @@ __author__ = 'Jonnas Freire'
 __version__ = '1.1.4'
 __license__ = 'MIT'
 
-from threading import Thread
-from tkinter import *
-from tkinter import filedialog
-from tkinter import messagebox
+from tkinter import Tk, messagebox, filedialog
 import subprocess, os, sys
 
 from moviepy.video.io.VideoFileClip import VideoFileClip
@@ -13,17 +10,16 @@ import psutil
 from pytube import YouTube
 import eel
 import requests
-import re
 
 class Search:
 
-	def __init__(self, query):
+	def __init__(self, query:str) -> None:
 		self.id_ref = "videoRenderer"
 		self.thumbnail_ref = '"url":"https://i'
 		self.title_ref = '"title":{"runs":[{"text":"'
 		self.duration_ref = '"}},"simpleText":"'
 
-		url = "https://www.youtube.com/results?search_query={}".format(query)
+		url = f"https://www.youtube.com/results?search_query={query}"
 
 		"Makes a request to get the data"
 		response = requests.get(url)
@@ -67,6 +63,7 @@ class Search:
 		    		duration_min = duration.split(':')[1]
 		    		duration_sec = duration.split(':')[2]
 		    		duration = duration_hour +':'+duration_min+':'+duration_sec
+					
 		    	else:
 		    		duration_min = duration.split(':')[0]
 		    		duration_sec = str(int(duration.split(':')[1]))
@@ -89,12 +86,14 @@ class Search:
 		    		
 		    		if char in scape:
 		    			title = title.replace(char, '')
+
 		    	video_data = {
 		    		'title':title,
 		    		'thumbnail':thumbnail,
 		    		'url':url,
 		    		'duration':duration
 		    	}
+
 		    	video_info.append(video_data)
 
 	    return video_info
@@ -103,9 +102,10 @@ class Search:
 
 eel.init('static')
 
-def audio_downloader(link, title, file_path):
+def audio_downloader(link:str, title:str, file_path:str) -> None:
+
 	"Sets a temporary path to save the downloaded file"
-	temp_path = os.getcwd()+'\\temp'
+	temp_path = os.path.join(os.getcwd(), 'temp')
 	file_name = ''
 
 	try:
@@ -128,13 +128,12 @@ def audio_downloader(link, title, file_path):
 		data.download(temp_path, filename=file_name)
 
 		"selects the file.mp4"
-		video = VideoFileClip(os.path.join(temp_path, file_name+".mp4"))
+		video = VideoFileClip(os.path.join(temp_path, f"{file_name}.mp4"))
 		if file_path:
 			"Converts the file.mp4 in file.mp3"
-			video.audio.write_audiofile(os.path.join(file_path, file_name+".mp3"))
+			video.audio.write_audiofile(os.path.join(file_path, f"{file_name}.mp3"))
 		
-		"Kill the process of convertion"
-		PROCNAME = "ffmpeg-win32-v4.2.2.exe"
+		"Kill the process of convertion - binary: ffmpeg-win32-v4.2.2.exe"
 		for proc in psutil.process_iter():
 		    if 'ffmpeg' in proc.name():
 		    	proc.kill()
@@ -148,8 +147,8 @@ def audio_downloader(link, title, file_path):
 		"Calls the front-end function to show download finished process"
 		eel.download_concluded(title)
 
-	except Exception as e:
-		"If ocurrs an exception, deletes the downloaded file"
+	except:
+		"If ocurrs an exception in convertion, deletes the downloaded file"
 		if sys.platform == 'win32':
 			subprocess.call(["del", f'{temp_path}\\{file_name}.mp4'], shell=True)
 		else:
@@ -159,53 +158,49 @@ def audio_downloader(link, title, file_path):
 
 
 
-def vd_downloader(link, title):
+def vd_downloader(link:str, title:str) -> None:
 
 	try:
 		"Sets the standard path"
-		PATH = os.environ['USERPROFILE'] + '\\Desktop'
+		path = os.path.join(os.environ['USERPROFILE'], 'Desktop')
 
 		yt = YouTube(link)
 
-		"Selects the stream with the hoghest resolution to download"
-		stream = yt.streams.filter(
-			progressive=True, 
-			file_extension='mp4'
-		).get_highest_resolution()
+		"Selects the stream with the highest resolution to download"
+		stream = yt.streams.filter(progressive=True, file_extension='mp4').get_highest_resolution()
 
-		stream.download(PATH, filename=title)
+		stream.download(path, filename=title)
 
 		"Calls the front-end function to show download finished process"
 		eel.download_concluded(title)
 
-	except Exception as e:
-		print(e)
+	except:
 		eel.msg_error(title)
 
 
 @eel.expose
-def search(query='') -> list:
+def search(query: str ='') -> list:
 
-	"Makes a search with a limit of 15 results"
+	"Makes a search with the query specified"
 	video_info = Search(query).get_video_info()
 	
 	return video_info
 	
 
 @eel.expose
-def verify(link, title, file_format):
+def verify(link:str, title:str, file_format:str) -> None:
 
 	if file_format == 'mp4':
 		eel.spawn(vd_downloader(link, title))
 
 	elif file_format == 'mp3':
-		path = os.environ['USERPROFILE'] + '\\Desktop'
+		path = os.path.join(os.environ['USERPROFILE'], 'Desktop')
 		eel.spawn(audio_downloader(link, title, path))
 
 
 
 @eel.expose
-def open_file_path():
+def open_file_path() -> str:
 
 	"Open a file dialog to select a folder to save the file to"
 	root = Tk()
@@ -219,7 +214,7 @@ def open_file_path():
 
 
 @eel.expose
-def open_file_name():
+def open_file_name() -> str:
 
 	"Open a file dialog to select a file.mp4 to convert"
 	root = Tk()
@@ -239,40 +234,32 @@ def open_file_name():
 		root.destroy()
 		return file_name
 	else:
-		ok = messagebox.showinfo('Erro', 
-			'Por favor selecione um arquivo no formato MP4'
-		)
+		messagebox.showinfo('Erro', 'Por favor selecione um arquivo no formato MP4')
 		root.destroy()
 
 
 
-def converter(path, media_file, save_file_to_path):
+def converter(path:str, media_file:str, save_file_to_path:str) -> None:
 	
-	def msg_sucess_with_path(save_file_to_path, mp3_file):
+	def msg_sucess_with_path(save_file_to_path:str, mp3_file:str) -> None:
 		root = Tk()
 		root.iconbitmap('static/src/images/downloader.ico')
 		root.withdraw()
-		ok = messagebox.showinfo('Sucesso',
-			f'Arquivo convertido com sucesso\nsalvo em: {save_file_to_path}/{mp3_file}.mp3'
-		)
+		messagebox.showinfo('Sucesso', f'Arquivo convertido com sucesso\nsalvo em: {save_file_to_path}/{mp3_file}.mp3')
 		root.destroy()
 
-	def msg_sucess_with_absolute_path(path, mp3_file):
+	def msg_sucess_with_absolute_path(path:str, mp3_file:str) -> None:
 		root = Tk()
 		root.iconbitmap('static/src/images/downloader.ico')
 		root.withdraw()
-		ok = messagebox.showinfo('Sucesso',
-			f'Arquivo convertido com sucesso\nsalvo em: {path}{mp3_file}.mp3'
-		)
+		messagebox.showinfo('Sucesso', f'Arquivo convertido com sucesso\nsalvo em: {path}{mp3_file}.mp3')
 		root.destroy()
 
-	def msg_error():
+	def msg_error() -> None:
 		root = Tk()
 		root.iconbitmap('static/src/images/downloader.ico')
 		root.withdraw()
-		ok = messagebox.showinfo('Erro', 
-			'Desculpe, não foi possível converter o arquivo'
-		)
+		messagebox.showinfo('Erro', 'Desculpe, não foi possível converter o arquivo')
 		root.destroy()
 
 	try:
@@ -280,18 +267,17 @@ def converter(path, media_file, save_file_to_path):
 		mp3_file = media_file[media_file.rindex('/')+1:media_file.rindex('.mp4')]
 		
 		if save_file_to_path != '':
-			video.audio.write_audiofile(os.path.join(save_file_to_path, mp3_file+".mp3"))
+			video.audio.write_audiofile(os.path.join(save_file_to_path, f"{mp3_file}.mp3"))
 			eel.cv_loader_stop()
 			msg_sucess_with_path(save_file_to_path, mp3_file)
 			
 		else:
-			video.audio.write_audiofile(os.path.join(path, mp3_file+".mp3"))
+			video.audio.write_audiofile(os.path.join(path, f"{mp3_file}.mp3"))
 			eel.cv_loader_stop()
 			msg_sucess_with_absolute_path(path, mp3_file)
 			
 
-		"KILL THE PROCESS"
-		PROCNAME = "ffmpeg-win32-v4.2.2.exe"
+		"Kill ffmpeg process"
 		for proc in psutil.process_iter():
 		    if 'ffmpeg' in proc.name():
 		    	proc.kill()
@@ -300,7 +286,7 @@ def converter(path, media_file, save_file_to_path):
 
 
 @eel.expose
-def converter_params(path, media_file, save_file_to_path):
+def converter_params(path:str, media_file:str, save_file_to_path:str) -> None:
 	eel.spawn(converter(path, media_file, save_file_to_path))
 
 

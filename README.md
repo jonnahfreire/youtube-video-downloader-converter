@@ -1,2 +1,2 @@
 # Youtube Video Downloader / Converter
-A Youtube downloader of video and audio and video converter GUI
+A Youtube video and audio downloader and video converter GUI

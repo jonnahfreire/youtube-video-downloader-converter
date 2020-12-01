@@ -13,7 +13,7 @@ import requests
 
 class Search:
 
-	def __init__(self: object, query:str) -> None:
+	def __init__(self:object, query:str) -> None:
 		self.id_ref = "videoRenderer"
 		self.thumbnail_ref = '"url":"https://i'
 		self.title_ref = '"title":{"runs":[{"text":"'
@@ -44,7 +44,7 @@ class Search:
 
 		    	title_start_pos = str(self.lines).find(self.title_ref, thumb_end_pos)+26
 		    	title_end_pos = str(self.lines).find("}", title_start_pos)-1
-		    	title = str(self.lines[title_start_pos: title_end_pos])
+		    	title = str(self.lines[titlúe_start_pos: title_end_pos])
 			
 		    	duration_start_pos = str(self.lines).find(self.duration_ref, title_end_pos)+18
 		    	duration_end_pos = str(self.lines).find("}", duration_start_pos)-1

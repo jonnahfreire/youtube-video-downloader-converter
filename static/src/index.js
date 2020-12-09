@@ -1,8 +1,8 @@
 const c = (el) => document.querySelector(el);
 const cs = (el) => document.querySelectorAll(el);
-let media_format = '';
-let video_item = ''
-let video_list = []
+var media_format = '';
+var video_item = ''
+var video_list = []
 
 c('.content-results').scrollIntoView(true);
 
@@ -26,10 +26,9 @@ if(c('.search-input').autofocus){
 	c('.search').style.boxShadow = "0px 0px 5px #3ec0e8";
 }
 
-// SEARCH INPUT
-let btn_search = document.querySelector('.search-btn');
-let input_search = document.querySelector('.search-input');
-let modal = document.querySelector('.modal');
+var btn_search = document.querySelector('.search-btn');
+var input_search = document.querySelector('.search-input');
+var modal = document.querySelector('.modal');
 
 btn_search.addEventListener('mouseover', ()=>{
 	c('.search-img').src = 'src/images/search-white.svg';
@@ -71,13 +70,11 @@ c('.clear-input-img').addEventListener('click', ()=>{
 });
 
 const video_search = async ()=>{
-
 	modal.style.opacity = 0;
 	modal.style.display = 'flex';
 	setTimeout(()=>{
 		modal.style.opacity = 1;
 	}, 50);
-
 
 	video_info = await eel.search(input_search.value)();
 	video_list = [];
@@ -107,22 +104,11 @@ const video_search = async ()=>{
 }
 
 
-// INPUT SEARCH CLICK
-btn_search.addEventListener('click', ()=>{
-	video_search();
-});
-
-// INPUT SEARCH PRESS ENTER
-input_search.addEventListener('keydown', (e)=>{
-	if (e.keyCode === 13){
-		video_search();
-	}
-});
-
+btn_search.addEventListener('click', () => video_search());
+input_search.addEventListener('keydown', event => event.keyCode === 13 && video_search());
 
 const show_search_results = ()=>{
-	
-	video_list.map((item) => {
+	video_list.map( item => {
 		let video_item = c('.content .search-result-items').cloneNode(true);
 
 		video_item.querySelector('.thumbnail').src = item.thumbnail;
@@ -146,58 +132,51 @@ const show_search_results = ()=>{
 				formats.style.display = 'none';
 
 				// CALL THE BACK-END FUNCTION TO DOWNLOAD
-				setTimeout(()=>{
+				setTimeout(() => {
 					eel.verify(item.url, item.title, media_format);
 				}, 2000)
 
 			}else{
 				let wait_msg = video_item.querySelector('.wait-msg');
 				wait_msg.style.display = 'flex';
-				setTimeout(()=>{
+				setTimeout(() => {
 					wait_msg.style.display = 'none';	
 				}, 3000);
 			}
 		});
 
-		video_item.addEventListener('mouseover', ()=> {
-			setTimeout(()=>{
-    			video_item.querySelector('.container-duration').style.opacity=1;
+		video_item.addEventListener('mouseover', () => {
+			setTimeout(() => {
+    				video_item.querySelector('.container-duration').style.opacity = 1;
 			}, 50);
 		});
 
-		video_item.addEventListener('mouseout', ()=> {
+		video_item.addEventListener('mouseout', () => {
 			setTimeout(()=>{
-    			video_item.querySelector('.container-duration').style.opacity=0;
+    				video_item.querySelector('.container-duration').style.opacity = 0;
 			}, 50);
 		});
 	
 		// CLOSE MSG CONCLUDED
-		video_item.querySelector('.close-msg-concluded').addEventListener('click', ()=>{
+		video_item.querySelector('.close-msg-concluded').addEventListener('click', () => {
 			let msg_download_concluded = video_item.querySelector('.msg-download-concluded');
 			msg_download_concluded.style.display = 'none';
 		});
-
 		
 		c('.content-results').appendChild(video_item)
 	});
 }
 
-
-
-window.onload = ()=> {  
-    document.onkeydown = function (e) {  
-        return (e.which || e.keyCode) != 116;  
-    }
-    // INITIALIZE SEARCH
+window.onload = () => {
+	document.onkeydown = event => (event.which || event.keyCode) != 116;
 	video_search();
-	// show_search_results();
 }
 
-let menu_item = cs('.menu-item');
-let downloader = c('.container-search-result');
-let conversor = c('.conversor');
-let sobre = c('.sobre');
-let div_search = c('.search')
+var menu_item = cs('.menu-item');
+var downloader = c('.container-search-result');
+var conversor = c('.conversor');
+var sobre = c('.sobre');
+var div_search = c('.search')
 
 menu_item[0].addEventListener('click', ()=>{
 	conversor.style.display = 'none';
@@ -229,14 +208,8 @@ menu_item[2].addEventListener('click', ()=>{
 	menu_item[2].classList.add('active');
 });
 
-
-// UNSET DOWNLOAD MESSAGE AND SET DOWNLOAD CONCLUDED MESSAGE
 eel.expose(download_concluded)
 function download_concluded(video_title){
-	// VERIFY IF THE TITLE OF THE FILE DOWNLOADED 
-	// RETURNED FROM BACK-END IS EQUAL TO THE ONE 
-	// THAT '.msg-download' CLASS STYLE IS SET TO 'flex', 
-	// AND UNSETS, SHOWING THAT THE FILE HAS BEEN DOWNLOADED SUCCESSFUL 
 	for( i=0; i < c('.content-results').childElementCount; i++ ){
 		if ( cs('.content-results .results-title h3')[i].innerText === video_title
 			&& cs('.content-results .msg-download')[i].style.display === 'flex'){

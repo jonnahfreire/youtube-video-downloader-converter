@@ -1,20 +1,19 @@
-const select = (el)=>document.querySelector(el);
-const selectAll = (el)=>document.querySelectorAll(el);
+const select = el => document.querySelector(el);
+const selectAll = el => document.querySelectorAll(el);
 
-video_input   = select('.video-input');
+video_input = select('.video-input');
 btn_converter = select('.btn_converter');
-msg_convert	  = select('.msg-convert');
-close_msg_concluded  = select('.close-msg-concluded-cv');
+msg_convert = select('.msg-convert');
+close_msg_concluded = select('.close-msg-concluded-cv');
 
 modal_cv  = select('.modal-cv');
 btn_ok 	  = select('.ok');
 msg_error = select('.msg-error p');
 msg_popup = select('.msg-popup');
 
-//Select the video file
-let file_to_convert = '';
+var file_to_convert = '';
 
-video_input.addEventListener('click', async ()=>{
+video_input.addEventListener('click', async () => {
 	if (video_input.value.length  === 0){
 		file_name = await eel.open_file_name()();
 		video_input.value = file_name;
@@ -22,13 +21,10 @@ video_input.addEventListener('click', async ()=>{
 	}
 })
 
-
-// Select path to save file
 file_path = document.querySelector('.cv-path');
+var path_to_save_file = '';
 
-let path_to_save_file = '';
-
-file_path.addEventListener('click', async ()=>{
+file_path.addEventListener('click', async () => {
 	if (file_path.value.length  === 0){
 		file = await eel.open_file_path()();
 		file_path.value = file;
@@ -36,7 +32,7 @@ file_path.addEventListener('click', async ()=>{
 	}
 })
 
-let absolute_path = '';
+var absolute_path = '';
 
 eel.expose(cv_loader_stop);
 function cv_loader_stop() {
@@ -48,9 +44,7 @@ function cv_loader_stop() {
 	select('.msg-convert-concluded').style.display = 'flex'
 }
 
-
-btn_converter.addEventListener('click', ()=>{
-	
+btn_converter.addEventListener('click', () => {
 	if (video_input.value.length === 0) {
 		modal_cv.style.opacity = 0;
 		modal_cv.style.display = 'flex';
@@ -59,17 +53,14 @@ btn_converter.addEventListener('click', ()=>{
 			modal_cv.style.opacity = 1;
 		}, 200);
 	}else {
-		if(path_to_save_file === ''){
-			absolute_path = file_to_convert.slice(0, file_to_convert.lastIndexOf('/')+1);
-		}
+		path_to_save_file === '' && absolute_path = file_to_convert.slice(0, file_to_convert.lastIndexOf('/') + 1);
 		console.log(absolute_path, file_to_convert, path_to_save_file)
 		msg_convert.style.display = 'flex';
 		eel.converter_params(absolute_path, file_to_convert, path_to_save_file);
 	}
 })
 
-
-btn_ok.addEventListener('click', ()=>{
+btn_ok.addEventListener('click', () => {
 	if (modal_cv.style.display === 'flex'){
 		modal_cv.style.opacity = 0;
 		setTimeout(()=>{
@@ -78,7 +69,7 @@ btn_ok.addEventListener('click', ()=>{
 	}
 })
 
-close_msg_concluded.addEventListener('click', ()=>{
+close_msg_concluded.addEventListener('click', () => {
 	if (select('.msg-convert-concluded').style.display === 'flex'){
 		select('.msg-convert-concluded').style.display = 'none';
 	}

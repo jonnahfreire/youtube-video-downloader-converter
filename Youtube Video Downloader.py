@@ -44,7 +44,7 @@ class Search:
 
 		    	title_start_pos = str(self.lines).find(self.title_ref, thumb_end_pos)+26
 		    	title_end_pos = str(self.lines).find("}", title_start_pos)-1
-		    	title = str(self.lines[titlúe_start_pos: title_end_pos])
+		    	title = str(self.lines[title_start_pos: title_end_pos])
 			
 		    	duration_start_pos = str(self.lines).find(self.duration_ref, title_end_pos)+18
 		    	duration_end_pos = str(self.lines).find("}", duration_start_pos)-1
@@ -101,7 +101,7 @@ def audio_downloader(link:str, title:str, file_path:str) -> None:
 		stream = yt.streams.filter(progressive=True, file_extension='mp4')
 		data = stream.get_highest_resolution()
 
-		scape = ['\\u', '\"', '\\', '|', ':', ',', '/', '.']
+		scape: list = ['\\u', '\"', '\\', '|', ':', ',', '/', '.']
 		for char in title:
 			if char in scape:
 				file_name = str(title).replace(char,'')

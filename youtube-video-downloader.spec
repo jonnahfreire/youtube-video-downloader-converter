@@ -3,7 +3,7 @@
 block_cipher = None
 
 
-a = Analysis(['Youtube Video Downloader.py'],
+a = Analysis(['youtube-video-downloader.py'],
              pathex=['YOUR_SCRIPT_FOLDER_PATH'],
              binaries=[],
              datas=[('YOUR_PYTHON_PATH\\lib\\site-packages\\eel\\eel.js', 'eel'), ('static', 'static')],
